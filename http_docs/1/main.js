@@ -59,27 +59,26 @@ if (!String.prototype.endsWith) {
 		if (conn)
 		{
 			j$("#MainDetail").LoadingOverlay("show",{image : "",fontawesome : fontawesomeloadIcon});
-
 			var logoutJSONPurl = conn.oauth2.revokeServiceUrl + '?token=' + conn.accessToken + '&callback=logoutcompleted'
-
-			loadjscssfile(logoutJSONPurl,'js');
-
-			/*
-			conn.logout(function(err) 
+			if (salesforceAccessURL)
 			{
-				j$("#MainDetail").LoadingOverlay("hide");
-				if (err) 
-				{ 
-					ProcessError(err); 
-				}
-				window.location.replace(homeurl);
-			});
-			*/
+				j$("#logoutdiv").html('<iframe id="myframe" src="'+salesforceAccessURL+'/secur/logout.jsp" onload="logout2(this)"></iframe>');
+			}
+			else
+			{
+				loadjscssfile(logoutJSONPurl,'js');
+			}
 		}
 		else
 		{
 			window.location.replace(homeurl);
 		}
+	}
+
+	function logout2()
+	{
+		var logoutJSONPurl = conn.oauth2.revokeServiceUrl + '?token=' + conn.accessToken + '&callback=logoutcompleted';
+		loadjscssfile(logoutJSONPurl,'js');
 	}
 
 	function logoutcompleted(err)
