@@ -3,18 +3,12 @@ validversions.push('1');
 var myversion ='1'; //update to latest to change version
 
 
-
 var myuserid = '';
 var mycdnurl = 'https://permissionviewer.herokuapp.com/';
 
-var targetUserId = getParameterByName('id');
-
-
 /***Used for local dev :never will be used in prod ***/
-var myloginurl = '';
 var myusername = '';
 var mypassword = '';
-var myproxyUrl = ''; 
 /*****************************************************************************************/
 
 

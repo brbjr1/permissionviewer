@@ -676,14 +676,7 @@ j$(document).ready(function()
 					{
 						salesforceAccessURL = conn.instanceUrl + '/secur/frontdoor.jsp?sid=' + conn.accessToken + '&retURL='
 					}
-					/*
-					if (targetUserId == undefined || targetUserId == null || targetUserId == '')
-					{
-						//setup for testing
-						targetUserId = userInfo.id;
-					}
-					*/
-	        		CheckAccessAndSetup();
+					CheckAccessAndSetup();
 	        	}
         	}
         	catch (err)
@@ -1463,14 +1456,7 @@ j$(document).ready(function()
 				{
 					salesforceAccessURL = conn.instanceUrl + '/secur/frontdoor.jsp?sid=' + conn.accessToken + '&retURL='
 				}
-				/*
-				if (targetUserId == undefined || targetUserId == null || targetUserId == '')
-				{
-					//setup for testing
-					targetUserId = userInfo.id;
-				}
-				*/
-        		CheckAccessAndSetup();
+				CheckAccessAndSetup();
 			}
 		});
 	}

@@ -5,7 +5,7 @@
     <title>Permission Viewer Test</title>
 </head>
     <body>
-
+    state=Production/Sandbox   Url for Soap Login:https://localhost:8443/test.html?luser=xxx&lpass=xxx&state=Sandbox
     <div id="MainContent"></div>
     
     <script>
@@ -16,9 +16,6 @@
         var clientSecret = '301232924113623245';
         var redirectUri = 'https://localhost:8443/test.html';
 
-
-        var set_loginurl =  getParameterByName('lurl'); //not used
-
         var set_username =  getParameterByName('luser');
         var set_pass =  getParameterByName('lpass');
 
@@ -28,7 +25,7 @@
             proxyurl = 'https://localhost:8443/proxy';
         }
 
-        loadjscssfile('permissionviewer.js?cdnurl=https://localhost:8443&lurl=' + set_loginurl + '&luser=' + set_username + '&lpass=' + set_pass,'js');
+        loadjscssfile('permissionviewer.js?cdnurl=https://localhost:8443&luser=' + set_username + '&lpass=' + set_pass,'js');
        
 
         function loadjscssfile(filename,filetype,callback)
