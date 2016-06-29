@@ -1,0 +1,265 @@
+<style>
+    h1 
+    {
+        font-family: "HelveticaNeueW02-Thin", "HelveticaNeueW02-45Ligh", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeueW02-45Ligh", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Nimbus Sans L", sans-serif !important;
+        font-size: 2em !important;
+        line-height: 1.1em !important;
+        color: #252E3E !important;
+    }
+    .gray 
+    {
+        font-family: "HelveticaNeueW02-45Ligh", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Nimbus Sans L", sans-serif;
+        color: #999a9b;
+    }
+    input[type="submit"], button 
+    {
+        cursor: pointer;
+        -webkit-appearance: none!important;
+        -moz-appearance: none!important;
+        appearance: none!important;
+        border: none;
+        font-family: "HelveticaNeueW02-45Ligh", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Nimbus Sans L", sans-serif;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        line-height: 1.8;
+        color: white;
+        text-decoration: none;
+        background-color: #252E3E;
+        transition: background-color 0.3s;
+        -moz-transition: background-color 0.3s;
+        -webkit-transition: background-color 0.3s;
+        -o-transition: background-color 0.3s;
+        padding: 0.3em 1em;
+    }
+   
+
+    .fxblue
+    {
+        font-family: "HelveticaNeueW02-Thin", "HelveticaNeueW02-45Ligh", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeueW02-45Ligh", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Nimbus Sans L", sans-serif !important;
+        color: #252E3E !important;
+    }
+	.text-grey {
+		color: grey;
+	}
+	.userleft {
+		width: 250px;
+		font-weight: bold;
+	}
+	.versioninfo {
+		font-size: 10px;
+		margin-top: 20px;
+		color: #999999;
+	}
+	.dropdown:hover .dropdown-menu {
+		display: block;
+	}
+	/* .modal-fullscreen */
+	
+	.modal-fullscreen {
+		background: transparent;
+	}
+	.modal-fullscreen .modal-dialog {
+		background: white;
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+	}
+	.modal-fullscreen .modal-content {
+		min-height: 100%;
+		height: auto;
+		border-radius: 0;
+	}
+	.modal-fullscreen .modal-body {
+		overflow-x: auto;
+		overflow-y: auto;
+		width: auto;
+		height: auto;
+	}
+	/* .modal-fullscreen size: we use Bootstrap media query breakpoints */
+	/*
+    
+    @media (min-width: 768px) {
+      .modal-fullscreen .modal-dialog {
+        width: 750px;
+      }
+    }
+    @media (min-width: 992px) {
+      .modal-fullscreen .modal-dialog {
+        width: 970px;
+      }
+    }
+    @media (min-width: 1200px) {
+      .modal-fullscreen .modal-dialog {
+         width: 1170px;
+      }
+
+      */
+	/* Absolute Center Spinner */
+	
+    .bs .nav-pills>li.active>a, .bs .nav-pills>li.active>a:focus, .bs .nav-pills>li.active>a:hover
+    {
+        background-color: #252E3E !important;
+    }
+	
+</style>
+<div class="bs">
+    <div id="pagediv">
+        <div id="loginDetails" style="display:none">
+
+           <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav navbar-left fxblue">
+                        <li><span id="userdetail"></span><br /><span id="username"></span></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right fxblue">
+                        <li><a onclick="ViewInSalesForce()">View in Salesforce</a></li>
+                        <li><a onclick="logout()">Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+        
+        <div class="clear"></div>
+
+        <div id="MainDetail" class="col-md-12">
+            <div id="logindiv" style="display:none;" class="col-md-12 gray">
+                        
+
+                <div class="col-md-6 col-md-offset-3">
+
+                    <h1>Permission Viewer</h1>
+                    <p>
+                        This tool uses the Salesforce Metadata API to view users permission access granted by profile and permissionsets.
+                    </p>
+                    <p>
+                        None of your organization information or data is captured or kept from running this tool.
+                    </p>
+                    <p>
+                        Note: You will need to be a System Administrator in order to use this application.
+                    </p>
+                    
+                    <div id="login_table">
+                        <table class="login_table">
+                            <tbody><tr>
+                                <td width="125">
+                                    <label for="id_environment">Environment</label>
+                                </td>
+                                <td width="130">
+                                    <select id="id_environment" name="environment" class="form-control" style="width:125px;">
+                                        <option value="Production">Production</option>
+                                        <option value="Sandbox">Sandbox</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="submit" value="Login" onclick="DoOathLoginLogin();">
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        </table>
+
+                        <div class="loading" style="display: none;">
+                            <div id="loadingp" style="float:left;" class="fontawesome fa fa-spinner fa-pulse fa-3x fa-fw">
+                            </div>
+                            <div style="float:left;margin-left:20px;">
+                                <h1 style="font-size:1.5em;margin-top:20px;">Accessing Salesforce...</h1>
+                                <p>Logging in with OAuth 2.0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div id="mainSearchContent" style="display:none" class="col-md-12">
+
+                <div class="input-group col-md-3">
+                  <span class="input-group-addon" id="basic-addon1">User Search</span>
+                  <input type="text"  id="searchtypeahead" autocomplete="off" class="form-control" placeholder="Enter Name" aria-describedby="basic-addon1">
+                </div>
+
+             </div>
+
+
+            <div id="mainContent" style="display:none" class="col-md-12">
+
+                <div class="panel panel-default">
+                    <ul class="nav nav-pills nav-justified">
+                          <li class="active"><a data-toggle="tab" href="#UserDetails">User Details</a></li>
+                          <li><a data-toggle="tab" href="#FXObjectPermissions">Object Permissions</a></li>
+                          <li><a data-toggle="tab" href="#ApexClasses">Apex Classes</a></li>
+                          <li><a data-toggle="tab" href="#VisualforcePages">Visualforce Pages</a></li>
+                          <li><a data-toggle="tab" href="#SystemPermissions">System Permissions</a></li>
+                    </ul>
+                </div>
+
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div id="UserDetails" class="tab-pane fade in active">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                	
+                                    <table class="table-bordered" width="100%">
+                                    <tr><td class="userleft">Full Name:</td><td id="userFullName"></td></tr>
+                                    <tr><td class="userleft">Role:</td><td id="userRole"></td></tr>
+                                    <tr><td class="userleft">Profile Name:</td><td id="userProfileName"></td></tr>
+                                    <tr><td class="userleft">Profile License Type:</td><td id="userProfileLicenseType"></td></tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Assigned Permission Sets</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="FXPermissionSetTable" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="FXObjectPermissions" class="tab-pane fade">
+                    		<div id="fxobjectpermissiontable"/>
+                        </div>
+
+                        <div id="ApexClasses" class="tab-pane fade">
+                        	<div id="fxApexClassestable"/>
+                        </div>
+
+                        <div id="VisualforcePages" class="tab-pane fade">
+                            <div id="fxVisualforcePagestable"/>
+                        </div>
+
+                        <div id="SystemPermissions" class="tab-pane fade">
+                            <div id="FXSystemPermissionsTable"/>
+                        </div>
+
+                    </div>
+                    <div class="versioninfo">Version:<span id="version"></span></div>
+                </div>
+                
+                
+                <!-- Modals -->
+                <div id="ObjectModal" tabindex="-1" class="modal modal-fullscreen fade" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title" id="OHeader">Object</h4>
+                          </div>
+                              <div class="modal-body" id="OBody"/>
+                          <div class="modal-footer" id="OFooter">
+                              <button id="CloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

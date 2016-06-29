@@ -1,0 +1,78 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Permission Viewer Test</title>
+</head>
+    <body>
+
+    <div id="MainContent"></div>
+    
+    <script>
+
+        var homeurl ='/test.html';
+
+        var clientId = '3MVG9y6x0357HledlQ65eyUtULvEgJ0h43NIG5ctOTtugCKMXpJR3hSh_tUsWeLI14eKebjJnXrzig6THzy1z';
+        var clientSecret = '301232924113623245';
+        var redirectUri = 'https://localhost:8443/test.html';
+
+
+        var set_loginurl =  getParameterByName('lurl'); //not used
+
+        var set_username =  getParameterByName('luser');
+        var set_pass =  getParameterByName('lpass');
+
+        var proxyurl =  getParameterByName('purl');
+        if (!proxyurl)
+        {
+            proxyurl = 'https://localhost:8443/proxy';
+        }
+
+        loadjscssfile('permissionviewer.js?cdnurl=https://localhost:8443&lurl=' + set_loginurl + '&luser=' + set_username + '&lpass=' + set_pass,'js');
+       
+
+        function loadjscssfile(filename,filetype,callback)
+        {
+            var head=document.getElementsByTagName("head")[0];
+            if (filetype=="js")
+            {
+                
+                var script=document.createElement('script');
+                script.src=filename;
+                script.type='text/javascript';
+                //real browsers
+                script.onload=callback;
+                //Internet explorer
+                script.onreadystatechange = function() 
+                {
+                    if (this.readyState == 'complete') 
+                    {
+                        callback(null);
+                    }
+                }
+                head.appendChild(script);
+            }
+            else if (filetype=="css")
+            {
+                var fileref=document.createElement("link");
+                fileref.setAttribute("rel", "stylesheet");
+                fileref.setAttribute("type", "text/css");
+                fileref.setAttribute("href", filename);
+                head.appendChild(fileref);
+                callback(null);
+            }
+        }
+
+        function getParameterByName(name) 
+        {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        </script>
+
+        
+    </body>
+</html>

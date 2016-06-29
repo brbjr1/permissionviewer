@@ -1,0 +1,73 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Permission Viewer</title>
+</head>
+    <body>
+
+    <div id="MainContent"></div>
+    
+    <script>
+
+        var homeurl ='/';
+
+        var clientId = '3MVG9y6x0357HledlQ65eyUtULly1yc8CKKbvp7Do8YrtclMGej7KEEno1Cvp7xlw3Eb7vZWGoP6Be8jfaVcQ';
+        var clientSecret = '8729617872831841885';
+        var redirectUri = 'https://permissionviewer.herokuapp.com/';
+
+        var proxyurl =  getParameterByName('purl');
+        if (!proxyurl)
+        {
+            proxyurl = 'https://permissionviewer.herokuapp.com/proxy';
+        }
+
+
+        loadjscssfile('permissionviewer.js','js');
+       
+
+        function loadjscssfile(filename,filetype,callback)
+        {
+            var head=document.getElementsByTagName("head")[0];
+            if (filetype=="js")
+            {
+                
+                var script=document.createElement('script');
+                script.src=filename;
+                script.type='text/javascript';
+                //real browsers
+                script.onload=callback;
+                //Internet explorer
+                script.onreadystatechange = function() 
+                {
+                    if (this.readyState == 'complete') 
+                    {
+                        callback(null);
+                    }
+                }
+                head.appendChild(script);
+            }
+            else if (filetype=="css")
+            {
+                var fileref=document.createElement("link");
+                fileref.setAttribute("rel", "stylesheet");
+                fileref.setAttribute("type", "text/css");
+                fileref.setAttribute("href", filename);
+                head.appendChild(fileref);
+                callback(null);
+            }
+        }
+
+        function getParameterByName(name) 
+        {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        </script>
+
+        
+    </body>
+</html>
