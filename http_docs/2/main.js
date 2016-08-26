@@ -947,71 +947,74 @@ j$(document).ready(function()
 																				var RelatedFXObjectsHT = new HashTable();
 																				j$.each(DescribeAllSObjectsResult, function(index, item)
 																				{
-																					var sobjecttype = item.fullName;
-																					
-																					RelatedFXObjectsHT.setItem(sobjecttype, item);
-																					var fieldresults = GetFieldResults(item);
-																					var recordTyperesults = GetRecordTypeResults(item,myUser.ProfileId, searchprofilename);
-																					var TabPerms = GetTabResults(item);
-																					var s1 = {
-																						APIName: sobjecttype,
-																						HasCreate: false,
-																						HasCreateGrantedBy: [],
-																						HasDelete: false,
-																						HasDeleteGrantedBy: [],
-																						HasEdit: false,
-																						HasEditGrantedBy: [],
-																						HasModifyAll: false,
-																						HasModifyAllGrantedBy: [],
-																						HasRead: false,
-																						HasReadGrantedBy: [],
-																						HasViewAll: false,
-																						HasViewAllGrantedBy: [],
-																						Label: item.label,
-																						OneFieldIsPermissionable: item.OneFieldIsPermissionable,
-																						fields: fieldresults,
-																						recordtypes: recordTyperesults,
-																						/*isCustom: false,*/
-																						isCustomSetting: false,
-																						CusomObjectId: item.CusomObjectId,
-																						ObjectDescribe: item,
-																						IsPermissionable: item.IsPermissionable,
-																						TabPermissions : TabPerms,
-																						ChildRelatedObjects:[],
-																						ParentRelatedObjects:[],
-
-																					};
-																					finalresult.FXObjects.push(s1);
-																					searchObjects.push(sobjecttype);
-																					
-																					SobjectHT.setItem(sobjecttype, item);
-																					var myparents = [];
-																					var myfields = GetDescribeSObjectField(item.fields);
-																					for (var ifld1 = 0; ifld1 < myfields.length; ifld1++)
+																					if (item.isCustomSetting == false)
 																					{
-																						var field = myfields[ifld1];
-																						if ((field.type == 'MasterDetail' || field.type == 'Lookup') && field.referenceTo != undefined && field.referenceTo != null)
+																						var sobjecttype = item.fullName;
+																						
+																						RelatedFXObjectsHT.setItem(sobjecttype, item);
+																						var fieldresults = GetFieldResults(item);
+																						var recordTyperesults = GetRecordTypeResults(item,myUser.ProfileId, searchprofilename);
+																						var TabPerms = GetTabResults(item);
+																						var s1 = {
+																							APIName: sobjecttype,
+																							HasCreate: false,
+																							HasCreateGrantedBy: [],
+																							HasDelete: false,
+																							HasDeleteGrantedBy: [],
+																							HasEdit: false,
+																							HasEditGrantedBy: [],
+																							HasModifyAll: false,
+																							HasModifyAllGrantedBy: [],
+																							HasRead: false,
+																							HasReadGrantedBy: [],
+																							HasViewAll: false,
+																							HasViewAllGrantedBy: [],
+																							Label: item.label,
+																							OneFieldIsPermissionable: item.OneFieldIsPermissionable,
+																							fields: fieldresults,
+																							recordtypes: recordTyperesults,
+																							/*isCustom: false,*/
+																							isCustomSetting: false,
+																							CusomObjectId: item.CusomObjectId,
+																							ObjectDescribe: item,
+																							IsPermissionable: item.IsPermissionable,
+																							TabPermissions : TabPerms,
+																							ChildRelatedObjects:[],
+																							ParentRelatedObjects:[],
+
+																						};
+																						finalresult.FXObjects.push(s1);
+																						searchObjects.push(sobjecttype);
+																						
+																						SobjectHT.setItem(sobjecttype, item);
+																						var myparents = [];
+																						var myfields = GetDescribeSObjectField(item.fields);
+																						for (var ifld1 = 0; ifld1 < myfields.length; ifld1++)
 																						{
-																							if (myparents.indexOf(field.referenceTo) < 0)
+																							var field = myfields[ifld1];
+																							if ((field.type == 'MasterDetail' || field.type == 'Lookup') && field.referenceTo != undefined && field.referenceTo != null)
 																							{
-																								myparents.push(field.referenceTo);
+																								if (myparents.indexOf(field.referenceTo) < 0)
+																								{
+																									myparents.push(field.referenceTo);
+																								}
 																							}
 																						}
-																					}
-																					if (myparents.length > 0)
-																					{
-																						ChildParentRelationships.setItem(sobjecttype, myparents);
-																						for (var icpr1 = 0; icpr1 < myparents.length; icpr1++)
+																						if (myparents.length > 0)
 																						{
-																							var myparent = myparents[icpr1];
-																							var mychildern = ParentChildRelationships.hasItem(myparent) ? ParentChildRelationships.getItem(myparent) : [];
-																							if (mychildern.indexOf(sobjecttype) < 0)
+																							ChildParentRelationships.setItem(sobjecttype, myparents);
+																							for (var icpr1 = 0; icpr1 < myparents.length; icpr1++)
 																							{
-																								mychildern.push(sobjecttype);
-																							}
-																							if (mychildern.length > 0)
-																							{
-																								ParentChildRelationships.setItem(myparent, mychildern);
+																								var myparent = myparents[icpr1];
+																								var mychildern = ParentChildRelationships.hasItem(myparent) ? ParentChildRelationships.getItem(myparent) : [];
+																								if (mychildern.indexOf(sobjecttype) < 0)
+																								{
+																									mychildern.push(sobjecttype);
+																								}
+																								if (mychildern.length > 0)
+																								{
+																									ParentChildRelationships.setItem(myparent, mychildern);
+																								}
 																							}
 																						}
 																					}
